@@ -1,0 +1,7 @@
+{ "name": "decree-server",
+  "description": "A small decree document template server and editor",
+  "version": "0.0.1",
+  "devDependencies": {
+    "http-server": "~0.9.0"
+  }
+}
