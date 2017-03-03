@@ -4,8 +4,8 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <h1>It Works!</h1>
-        
+        <h1>Hello, <span id="person">World</span>!</h1>
+        <p>Enter Your Name:<input id="person_name" value="Sidor"></p>
         <p>This should hide</p>
         <button>Click me to hide paragraphs</button>
 
@@ -26,6 +26,7 @@
         $(document).ready(function(){
             $("button").click(function(){
                 $("p").hide();
+                $("#person").text($("#person_name").val());
             });
         });
 </script>
