@@ -104,7 +104,7 @@
             <h1>Доверенность</h1>
             <p class="centering">на получение заработной платы</p>
 
-            <p>Я, <span id="confidence.person.name" class="edit string">Гирпа Елена Викторовна</span>, паспорт серии 5623, № 235648, выдан Крюковским отделением милиции Солнечногорского ОВД Московской области, проживающая по адресу:  Московская область, г. Мытищи, Олимпийский проспект, д. 23, кв. 14 доверяю <span id="trustee.person.familyname" class="edit string" data-case="dative">Чесноковой Ирине Юрьевне</span>, паспорт серии 2356 № 356489, выдан ОВД «Якиманка» г. Москвы, проживающей по адресу: г. Москва, Ярославское шоссе, 12, кв. 25 получить в кассе ООО «Satel», находящегося по адресу: г. Москва, ул. Серова, 12 причитающуюся мне заработную плату за ноябрь 2012 г., расписаться  за меня и совершить все действия, связанные с выполнением этого поручения.
+            <p>Я, <span id="confidence.person.familyname" class="edit string">Гирпа Елена Викторовна</span>, паспорт серии 5623, № 235648, выдан Крюковским отделением милиции Солнечногорского ОВД Московской области, проживающая по адресу:  Московская область, г. Мытищи, Олимпийский проспект, д. 23, кв. 14 доверяю <span id="trustee.person.familyname" class="edit string" data-case="dative">Чесноковой Ирине Юрьевне</span>, паспорт серии 2356 № 356489, выдан ОВД «Якиманка» г. Москвы, проживающей по адресу: г. Москва, Ярославское шоссе, 12, кв. 25 получить в кассе ООО «Satel», находящегося по адресу: г. Москва, ул. Серова, 12 причитающуюся мне заработную плату за ноябрь 2012 г., расписаться  за меня и совершить все действия, связанные с выполнением этого поручения.
             </p>
 
             05 декабря 2012 г.
@@ -146,7 +146,7 @@
         <script>
          function jqesc( myid ) {
              return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
-         }
+         };
          function setupEditMode() {
              var editables = $('.edit');
              editables.each(function(){
@@ -195,11 +195,32 @@
                  }
              });
              $('#app-control-save').click(function(){
-                 alert("Saving!!!!! ---\ @@ /---");
+                 var jsdata=new Object();
+                 var docroot=$("#main-document");
+                 var editables = docroot.find(".edit");
+                 data = jsdata["main-document"] = new Object();
+                 editables.each(function(){
+                     var e = $(this);
+                     var val = e.text();
+                     var eid = e.attr("id");
+                     var parts = eid.split(".");
+                     var d = data;
+                     parts.slice(0, -1).forEach(function(part, idx, arr){
+                         if (part in d) {
+                         } else {
+                             d[part]=new Object();
+                         };
+                         d=d[part];
+                     });
+
+                     d[parts[parts.length - 1]]=val;
+
+                 });
+                 alert(JSON.stringify(data));
              });
+             propagateEditable();
+             // setupEditMode();
          });
-         propagateEditable();
-         // setupEditMode();
         </script>
     </body>
 </html>
