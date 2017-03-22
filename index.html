@@ -144,6 +144,9 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
                 crossorigin="anonymous"></script>
         <script>
+         function jqesc( myid ) {
+             return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
+         }
          function setupEditMode() {
              var editables = $('.edit');
              editables.each(function(){
@@ -162,6 +165,16 @@
                  var val = f.val();
                  e.empty();
                  e.text(val);
+             });
+             propagateEditable();
+         };
+         function propagateEditable() {
+             var editables = $('.edit');
+             editables.each(function(){
+                 var e = $(this);
+                 var val = e.text();
+                 var eid = jqesc(e.attr("id")); // # is already added.
+                 var disps = $(`${eid}.disp`).text(val);
              });
          };
 
@@ -185,7 +198,7 @@
                  alert("Saving!!!!! ---\ @@ /---");
              });
          });
-
+         propagateEditable();
          // setupEditMode();
         </script>
     </body>
