@@ -121,11 +121,15 @@
             05 декабря 2012 г.
             М. П.
         </div>
-        <div class="app-control-panel">
+        <div class="app-control-panel btn-group">
             <button class="btn btn-primary"
                     id="app-control-button"
                     data-phase="edit"
-            >Редактировать</button>
+                    style="width:10em;"
+            >Редактировать</button><button id="app-control-save"
+                                           class="btn btn-success"
+                                           style="width:10em;"
+                                   >Сохранить</button>
         </div>
 
 
@@ -153,6 +157,9 @@
                      b.text("Редактировать");
                      b.attr("data-phase", "edit");
                  }
+             });
+             $('#app-control-save').click(function(){
+                 alert("Saving!!!!! ---\ @@ /---");
              });
          });
         </script>
