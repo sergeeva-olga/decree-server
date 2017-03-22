@@ -124,7 +124,7 @@
         <div class="app-control-panel btn-group">
             <button class="btn btn-primary"
                     id="app-control-button"
-                    data-phase="edit"
+                    data-phase="disp"
                     style="width:10em;"
             >Редактировать</button><button id="app-control-save"
                                            class="btn btn-success"
@@ -144,6 +144,27 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
                 crossorigin="anonymous"></script>
         <script>
+         function setupEditMode() {
+             var editables = $('.edit');
+             editables.each(function(){
+                 var e = $(this);
+                 var val = e.text();
+                 var eid = e.attr("id");
+                 e.wrapInner(`<input value="${val}" id="${eid}-editable" class="edit-field"/>`);
+             });
+         };
+         function setupDispMode() {
+             var editables = $('.edit-field');
+             editables.each(function(){
+                 var f = $(this);
+                 var e = f.parent();
+                 var eid = e.attr("id");
+                 var val = f.val();
+                 e.empty();
+                 e.text(val);
+             });
+         };
+
          $(document).ready(function(){
              $("#app-control-button").click(function(){
                  // $("p").hide();
@@ -151,17 +172,21 @@
                  var b = $(this);
                  var phase=b.attr("data-phase");
                  if (phase == "edit") {
-                     b.text("Просмотреть");
-                     b.attr("data-phase", "disp");
-                 } else {
                      b.text("Редактировать");
+                     b.attr("data-phase", "disp");
+                     setupDispMode();
+                 } else {
+                     b.text("Посмотреть");
                      b.attr("data-phase", "edit");
+                     setupEditMode();
                  }
              });
              $('#app-control-save').click(function(){
                  alert("Saving!!!!! ---\ @@ /---");
              });
          });
+
+         // setupEditMode();
         </script>
     </body>
 </html>
