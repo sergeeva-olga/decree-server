@@ -1,0 +1,43 @@
+.c {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+    text-indent: 4em;
+}
+
+p.noindent {
+    text-indent: 0em;
+}
+
+p.centering {
+    text-indent: 0em;
+    text-align: center;
+}
+
+
+.edit {
+    color: blue;
+}
+
+.disp {
+    color: green;
+}
+
+.string {
+
+}
+
+.app-control-body {
+    padding: 1em;
+}
+
+.app-control-panel {
+    padding: 1em;
+    background-color: yellow;
+}
