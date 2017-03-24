@@ -70,7 +70,18 @@ $(document).ready(function(){
       d[parts[parts.length - 1]]=val;
 
     });
-    alert(JSON.stringify(data));
+    var uri="http://irnok.net/fake-doc.html";
+    var store = $rdf.graph();
+    var mdoc = $("html").html();
+    var mimeType = "application/xhtml+xml";
+    try {
+      $rdf.parse(mdoc, store, uri, mimeType);
+    } catch (err) {
+      alert("Error:"+err);
+    }
+    // var triples=store.each(undefined, undefined, undefined);
+    alert (store.length);
+    // alert(JSON.stringify(data));
   });
   propagateEditable();
   // setupEditMode();
