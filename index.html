@@ -9,95 +9,12 @@
               href="css/bootstrap-theme.min.css"
               integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
               crossorigin="anonymous">
-		<style>
-
-         /* Font Definitions */
-         @font-face
-	     {font-family:"MS Mincho";
-	         panose-1:2 2 6 9 4 2 5 8 3 4;}
-         @font-face
-	     {font-family:"MS Mincho";
-	         panose-1:2 2 6 9 4 2 5 8 3 4;}
-         @font-face
-	     {font-family:Tahoma;
-	         panose-1:2 11 6 4 3 5 4 4 2 4;}
-         @font-face
-	     {font-family:"\@MS Mincho";
-	         panose-1:2 2 6 9 4 2 5 8 3 4;}
-         /* Style Definitions */
-         p.MsoNormal, li.MsoNormal, div.MsoNormal
-	     {margin:0cm;
-	         margin-bottom:.0001pt;
-	         font-size:12.0pt;
-	         font-family:"Times New Roman","serif";}
-         p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText
-	     {mso-style-link:"Текст сноски Знак";
-	         margin:0cm;
-	         margin-bottom:.0001pt;
-	         font-size:10.0pt;
-	         font-family:"Times New Roman","serif";}
-         p.MsoHeader, li.MsoHeader, div.MsoHeader
-	     {margin:0cm;
-	         margin-bottom:.0001pt;
-	         font-size:12.0pt;
-	         font-family:"Times New Roman","serif";}
-         p.MsoFooter, li.MsoFooter, div.MsoFooter
-	     {margin:0cm;
-	         margin-bottom:.0001pt;
-	         font-size:12.0pt;
-	         font-family:"Times New Roman","serif";}
-         span.MsoFootnoteReference
-	     {vertical-align:super;}
-         p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
-	     {mso-style-link:"Основной текст с отступом Знак";
-	         margin:0cm;
-	         margin-bottom:.0001pt;
-	         text-align:justify;
-	         text-indent:36.0pt;
-	         font-size:14.0pt;
-	         font-family:"Times New Roman","serif";}
-         p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	     {mso-style-link:"Текст Знак";
-	         margin:0cm;
-	         margin-bottom:.0001pt;
-	         font-size:10.0pt;
-	         font-family:"Courier New";}
-         p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	     {margin:0cm;
-	         margin-bottom:.0001pt;
-	         font-size:8.0pt;
-	         font-family:"Tahoma","sans-serif";}
-         span.a
-	     {mso-style-name:"Основной текст с отступом Знак";
-	         mso-style-link:"Основной текст с отступом";}
-         span.a0
-	     {mso-style-name:"Текст Знак";
-	         mso-style-link:Текст;
-	         font-family:"Courier New";}
-         span.a1
-	     {mso-style-name:"Текст сноски Знак";
-	         mso-style-link:"Текст сноски";}
-         .MsoChpDefault
-	     {font-size:10.0pt;}
-         /* Page Definitions */
-         @page WordSection1
-	     {size:595.3pt 841.9pt;
-	         margin:17.0pt 1.0cm 7.1pt 1.0cm;}
-         div.WordSection1
-	     {page:WordSection1;}
-         /* List Definitions */
-         ol
-	     {margin-bottom:0cm;}
-         ul
-	     {margin-bottom:0cm;}
-
-        </style>
+		<style rel="stylesheet" href="css/mso.css"></style>
         <link rel="stylesheet"
                href="css/document-base.css"
         >
 
     </head>
-
     <body>
 
         <div id="main-document" class="app-control-body">
@@ -131,8 +48,6 @@
                                            style="width:10em;"
                                    >Сохранить</button>
         </div>
-
-
         <!-- Do not add any visible HTML below this line -->
         <script
             src="/js/jquery/jquery-3.1.1.min.js"
@@ -143,84 +58,6 @@
         <script src="js/bootstrap.min.js"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
                 crossorigin="anonymous"></script>
-        <script>
-         function jqesc( myid ) {
-             return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
-         };
-         function setupEditMode() {
-             var editables = $('.edit');
-             editables.each(function(){
-                 var e = $(this);
-                 var val = e.text();
-                 var eid = e.attr("id");
-                 e.wrapInner(`<input value="${val}" id="${eid}-editable" class="edit-field"/>`);
-             });
-         };
-         function setupDispMode() {
-             var editables = $('.edit-field');
-             editables.each(function(){
-                 var f = $(this);
-                 var e = f.parent();
-                 var eid = e.attr("id");
-                 var val = f.val();
-                 e.empty();
-                 e.text(val);
-             });
-             propagateEditable();
-         };
-         function propagateEditable() {
-             var editables = $('.edit');
-             editables.each(function(){
-                 var e = $(this);
-                 var val = e.text();
-                 var eid = jqesc(e.attr("id")); // # is already added.
-                 var disps = $(`${eid}.disp`).text(val);
-             });
-         };
-
-         $(document).ready(function(){
-             $("#app-control-button").click(function(){
-                 // $("p").hide();
-                 // $("#person").text($("#person_name").val());
-                 var b = $(this);
-                 var phase=b.attr("data-phase");
-                 if (phase == "edit") {
-                     b.text("Редактировать");
-                     b.attr("data-phase", "disp");
-                     setupDispMode();
-                 } else {
-                     b.text("Посмотреть");
-                     b.attr("data-phase", "edit");
-                     setupEditMode();
-                 }
-             });
-             $('#app-control-save').click(function(){
-                 var jsdata=new Object();
-                 var docroot=$("#main-document");
-                 var editables = docroot.find(".edit");
-                 data = jsdata["main-document"] = new Object();
-                 editables.each(function(){
-                     var e = $(this);
-                     var val = e.text();
-                     var eid = e.attr("id");
-                     var parts = eid.split(".");
-                     var d = data;
-                     parts.slice(0, -1).forEach(function(part, idx, arr){
-                         if (part in d) {
-                         } else {
-                             d[part]=new Object();
-                         };
-                         d=d[part];
-                     });
-
-                     d[parts[parts.length - 1]]=val;
-
-                 });
-                 alert(JSON.stringify(data));
-             });
-             propagateEditable();
-             // setupEditMode();
-         });
-        </script>
+        <script src="js/rdfengine.js" ></script>
     </body>
 </html>
