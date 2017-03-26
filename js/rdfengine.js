@@ -7,7 +7,7 @@ function setupEditMode() {
     var e = $(this);
     var val = e.text();
     var eid = e.attr("id");
-    e.wrapInner(`<input value="${val}" id="${eid}-editable" class="edit-field form-inline"/>`);
+    e.wrapInner(`<input value="${val}" id="${eid}-editable" class="edit-field form-inline" />`);
   });
 };
 function setupDispMode() {

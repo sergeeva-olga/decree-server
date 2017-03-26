@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-h1 {
+h2 {
     text-align: center;
 }
 
@@ -21,26 +21,38 @@ p.centering {
 }
 
 
-.edit {
+span.edit {
     color: blue;
 }
 
-.disp {
+span.disp {
     color: green;
 }
 
-.string {
+span.string, input.string {
 
 }
 
-.app-control-body {
+button.app-control-body {
     padding: 1em;
 }
 
-.app-control-panel {
+button.app-control-panel {
     padding: 1em;
     background-color: yellow;
 }
 
-.edit-field {
+span.edit-field, input.edit-field {
+}
+
+div.left {
+    float: left;
+}
+
+div.right {
+    float: right;
+}
+
+input.form-inline {
+    background-color:#EEE  importand!;
 }
