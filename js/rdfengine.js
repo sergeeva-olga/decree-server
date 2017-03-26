@@ -38,12 +38,14 @@ $(document).ready(function(){
     // $("#person").text($("#person_name").val());
     var b = $(this);
     var phase=b.attr("data-phase");
+    var icon=$("#app-control-button-icon");
+    icon.attr("class","fa");
     if (phase == "edit") {
-      b.text("Редактировать");
+      icon.addClass("fa-edit");
       b.attr("data-phase", "disp");
       setupDispMode();
     } else {
-      b.text("Посмотреть");
+      icon.addClass("fa-eye");
       b.attr("data-phase", "edit");
       setupEditMode();
     }
