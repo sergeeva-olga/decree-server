@@ -6,7 +6,10 @@ function setupEditMode() {
   editables.each(function(){
     var e = $(this);
     var val = e.text();
-    e.wrapInner(`<input value="${val}" class="edit-field form-inline" />`);
+    var size = val.trim().length;
+    if (size < 5) { size = 5; };
+    size = Number(size * 1.2);
+    e.wrapInner(`<input value="${val}" class="edit-field form-inline" size="${size}" />`);
   });
 };
 function setupDispMode() {
