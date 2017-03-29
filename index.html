@@ -122,45 +122,63 @@
                     <section id="regulation">
                         <p>Я,
                             <span property="fibol:designatesSignatory" typeof="fibol:Signatory foaf:Person" resource="#signatory">
-                                <span class="edit string" property="foaf:name" id="signatory-name" datatype="xsd:String">Гирпа Елена Викторовна</span>,
+                                <span property="foaf:name" id="signatory-name" datatype="xsd:String">Гирпа Елена Викторовна</span>,
                                 <span property="adoc:hasPassport" resource="#signatory-passport" typeof="acrt:Certification">
                                     <span property="acrt:qualification"
                                           resource="dbr:Passport"
                                     >паспорт</span>
-                                    <span property="acrt:principal" resource="#signatory"/>
                                     <span property="dcterms:coverage" resource="dbr:Russia"/>
                                     серии
                                     <span property="adoc:series" datatype="xsd:String"
-                                          class="edit number">5623</span>,
+                                    >5623</span>,
                                     №
                                     <span
-                                          property="adoc:number"
-                                          detatype="xsd:Number">235648</span>,
+                                        property="adoc:number"
+                                        datatype="xsd:Number">235648</span>,
                                     выдан
                                     <span
-                                          property="dcterms:issued"
-                                          detatype="xsd:Date"
-                                          content="2017-10-16">16.10.2017</span>
+                                        property="dcterms:issued"
+                                        datatype="xsd:Date"
+                                        content="2017-10-16">16.10.2017</span>
                                     <a property="adoc:issuer"
                                        typeof="foaf:Organization"
                                        href="http://ir-kutsk.ru/irkutskie-firmy/otdel-ufms-rf_3.html"
                                     >
                                         <span
-                                              property="dc:title"
-                                              detatype="xsd:String"
-                                        >Отделом УФМС России по Иркутской области в Сведловском р-не гор. Иркутска</span>
-                                    </a>,
+                                            property="dc:title"
+                                            detatype="xsd:String"
+                                        >Отделом УФМС России по Иркутской области в Сведловском р-не гор. Иркутска</span></a>,
                                 </span>
                                 проживающая по адресу:
                                 <span property="vcard:hasStreetAddress"  datatype="xsd:String">Московская область, г. Мытищи, Олимпийский проспект, д. 23, кв. 14</span>
                             </span>
                             доверяю
-                            <span property="fiborel:confers" typeof="fibol:PowerOfAttorney foaf:Person">
-                                <span id="attorney-name" class="edit string" data-case="dative" property="foaf:name" datatype="xsd:String"
-
-                                >Чесноковой Ирине Юрьевне</span>, паспорт серии 2356 № 356489, выдан ОВД «Якиманка» г. Москвы, проживающей по адресу: г. Москва, Ярославское шоссе, 12, кв. 25 получить в кассе ООО «Satel», находящегося по адресу: г. Москва, ул. Серова, 12
+                            <span property="fiborel:confers" typeof="fibol:PowerOfAttorney foaf:Person" resource="#attorney">
+                                <span data-case="dative" property="foaf:name" datatype="xsd:String"
+                                >Чесноковой Ирине Юрьевне</span>,
+                                <span property="adoc:hasPassport" resource="#attorney-passport" typeof="acrt:Certification"><span property="acrt:qualification" resource="dbr:Passport">паспорт</span>
+                                    <span property="adoc:series" datatype="xsd:String"
+                                    >5623</span>,
+                                    №
+                                    <span property="adoc:number"
+                                          datatype="xsd:Number">235648</span>,
+                                    выдан
+                                    <span
+                                        property="dcterms:issued"
+                                        datatype="xsd:Date"
+                                        content="2017-10-16">16.10.2017</span>
+                                    <a property="adoc:issuer"
+                                       typeof="foaf:Organization"
+                                       href="http://ir-kutsk.ru/irkutskie-firmy/otdel-ufms-rf_3.html"
+                                    >
+                                        <span
+                                            property="dc:title"
+                                            detatype="xsd:String"
+                                        >Отделом УФМС России по Иркутской области в Сведловском р-не гор. Иркутска</span></a></span>,
+                                проживающая по адресу:
+                                <span property="vcard:hasStreetAddress"  datatype="xsd:String">Московская область, г. Мытищи, Олимпийский проспект, д. 23, кв. 14</span>
                             </span>
-                                причитающуюся мне заработную плату за ноябрь 2012 г., расписаться  за меня и совершить все действия, связанные с выполнением этого поручения.
+                            <span property="foaf:primaryTopic" datatype="xsd:String">получить причитающуюся мне заработную плату за ноябрь 2012 г.</span>, расписаться  за меня и совершить все действия, связанные с выполнением этого поручения.
                         </p>
                     </section>
 

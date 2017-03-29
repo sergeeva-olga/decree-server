@@ -86,6 +86,7 @@ $(document).ready(function(){
     alert (store.length);
     // alert(JSON.stringify(data));
   });
+  $("[datatype]").addClass("edit");
   propagateEditable();
   // setupEditMode();
 });
