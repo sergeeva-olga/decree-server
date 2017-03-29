@@ -2,12 +2,11 @@ function jqesc( myid ) {
   return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
 };
 function setupEditMode() {
-  var editables = $('.edit');
+  var editables = $('[datatype]');
   editables.each(function(){
     var e = $(this);
     var val = e.text();
-    var eid = e.attr("id");
-    e.wrapInner(`<input value="${val}" id="${eid}-editable" class="edit-field form-inline" />`);
+    e.wrapInner(`<input value="${val}" class="edit-field form-inline" />`);
   });
 };
 function setupDispMode() {
@@ -15,7 +14,6 @@ function setupDispMode() {
   editables.each(function(){
     var f = $(this);
     var e = f.parent();
-    var eid = e.attr("id");
     var val = f.val();
     e.empty();
     e.text(val);
@@ -23,12 +21,15 @@ function setupDispMode() {
   propagateEditable();
 };
 function propagateEditable() {
-  var editables = $('.edit');
+  var editables = $('[datatype]');
   editables.each(function(){
     var e = $(this);
     var val = e.text();
-    var eid = jqesc(e.attr("id")); // # is already added.
-    var disps = $(`${eid}.disp`).text(val);
+    var id = e.attr("id");
+    if (id != undefined) {
+      var eid = jqesc(id);
+      var disps = $(`${eid}:not([datatype])`).text(val);
+    };
   });
 };
 
