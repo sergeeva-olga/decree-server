@@ -10,7 +10,7 @@ import os
 from setuptools.extension import Extension
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
+README = open(os.path.join(here, 'README.md'), "rb").read().decode("utf-8")
 NEWS = open(os.path.join(here, 'NEWS.rst')).read()
 
 
