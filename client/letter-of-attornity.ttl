@@ -1,0 +1,534 @@
+@prefix acl: <http://www.w3.org/ns/auth/acl#> .
+@prefix acrt: <https://privatealpha.com/ontology/certification/1#> .
+@prefix adoc: <https://irnok.net/ontologies/documents/> .
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix biblio: <http://purl.org/net/biblio#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix book: <http://purl.org/NET/book/vocab#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+@prefix ccns: <https://creativecommons.org/ns#> .
+@prefix cert: <http://www.w3.org/ns/auth/cert#> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix dbp: <http://dbpedia.org/property/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix deo: <http://purl.org/spar/deo/> .
+@prefix dio: <https://w3id.org/dio#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix fibol: <http://www.omg.org/spec/EDMC-FIBO/BE/LegalEntities/LegalPersons/> .
+@prefix fiborel: <http://www.omg.org/spec/EDMC-FIBO/FND/Relations/Relations/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ht: <http://www.w3.org/2006/http#> .
+@prefix ldp: <http://www.w3.org/ns/ldp#> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+@prefix opmw: <http://www.opmw.org/ontology/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix ov: <http://open.vocab.org/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pimspace: <http://www.w3.org/ns/pim/space#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pyrdfa: <http://www.w3.org/2007/08/pyRdfa/vocab#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rsa: <http://www.w3.org/ns/auth/rsa#> .
+@prefix schema: <http://schema.org/> .
+@prefix sio: <http://semanticscience.org/resource/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsi: <http://www.w3.org/2001/XMLSchema-instance> .
+
+<https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#annotation> a oa:Annotation .
+
+<https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#letter-of-attorney> a schema:Article,
+        foaf:Document ;
+    fibol:designatesSignatory <https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#signatory> .
+
+<https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#semantic-editor> a sioc:Post,
+        schema:CreativeWork,
+        prov:Entity .
+
+<https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#attorney> a fibol:PowerOfAttorney,
+        foaf:Person ;
+    vcard:hasStreetAddress "Московская область, г. Мытищи, Олимпийский проспект, д. 23, кв. 14"^^xsd:String ;
+    foaf:name "Чесноковой Ирине Юрьевне"^^xsd:String ;
+    adoc:hasPassport <https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#attorney-passport> .
+
+<https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#attorney-passport> a acrt:Certification ;
+    dcterms:issued "2017-10-16"^^xsd:Date ;
+    adoc:issuer <http://ir-kutsk.ru/irkutskie-firmy/otdel-ufms-rf_3.html> ;
+    adoc:number "235648"^^xsd:Number ;
+    adoc:series "5623"^^xsd:String ;
+    acrt:qualification dbr:Passport .
+
+<https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#signatory> a fibol:Signatory,
+        foaf:Person ;
+    fiborel:confers <https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#attorney> ;
+    foaf:name "Гирпа Елена Викторовна"^^xsd:String ;
+    adoc:hasPassport <https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#signatory-passport> .
+
+<https://irnok.net/app/legalunit/notarial/letter-of-attornity.html#signatory-passport> a acrt:Certification ;
+    dcterms:coverage dbr:Russia ;
+    dcterms:issued "2017-10-16"^^xsd:Date ;
+    vcard:hasStreetAddress "Московская область, г. Мытищи, Олимпийский проспект, д. 23, кв. 14"^^xsd:String ;
+    adoc:issuer <http://ir-kutsk.ru/irkutskie-firmy/otdel-ufms-rf_3.html> ;
+    adoc:number "235648"^^xsd:Number ;
+    adoc:series "5623"^^xsd:String ;
+    acrt:qualification dbr:Passport .
+
+<http://ir-kutsk.ru/irkutskie-firmy/otdel-ufms-rf_3.html> a foaf:Organization ;
+    dcterms:title "Отделом УФМС России по Иркутской области в Сведловском р-не гор. Иркутска"@ru .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.010149"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cert')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.016050"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'deo')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.038910"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'biblio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.011517"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cal')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.040945"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cal')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.993178"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'doco')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.019973"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'org')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.014737"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'qb')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.038257"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dctypes')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.031672"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'xsd')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.008211"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.004839"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'sio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.025825"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'void')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.006935"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cito')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.029075"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'oa')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.997087"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'acl')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.034338"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'sio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.998376"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'wgs')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.033685"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'ov')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.993816"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'fabio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.990602"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'org')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.986715"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'deo')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.030374"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'as')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.984015"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'pimspace')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.003552"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'xsi')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.021916"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'ccns')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.999030"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'skos')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.005479"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'rdf')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.014083"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'opmw')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.027765"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'wgs')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.015384"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'owl')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.021261"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'prov')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.019316"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'doap')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.018002"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cnt')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.996428"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'void')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.001614"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'ldp')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.002271"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'xsd')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.007577"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'schema')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.018647"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dcterms')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.992544"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'ccns')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.036955"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'schema')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.995131"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dbr')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.999670"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'oa')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.004196"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'ov')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.040292"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'solid')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.033033"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'xsi')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.022566"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'doco')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.009510"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'biblio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.997734"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'rdfs')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.016700"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'vcard')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.026470"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'acl')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.028422"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'skos')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.010880"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'solid')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.976194"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'bibo')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.008869"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dctypes')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.037603"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.986063"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'owl')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.006284"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'book')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.002916"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'fiborel')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.991886"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'prov')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.020619"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'sioc')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.994476"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'foaf')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.034984"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'rdf')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.017344"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'fibol')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.039619"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cert')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.029729"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'rsa')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.988010"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'fibol')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.035661"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'book')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.023214"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'fabio')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.989312"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dcterms')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.985396"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'qb')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.027121"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'rdfs')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.000975"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'as')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.987373"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'vcard')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.995779"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dbp')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.025158"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dbp')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.036310"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cito')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.991247"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'sioc')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.023866"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'foaf')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.989956"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'doap')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.032333"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'fiborel')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.000329"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'rsa')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.012783"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'bibo')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.988651"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'cnt')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:33.984701"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'opmw')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.031024"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'ldp')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.024515"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'dbr')" .
+
+[] a pyrdfa:IncorrectPrefixDefinition,
+        rdfa:Warning ;
+    dcterms:date "2017-03-29T10:07:34.013426"^^xsd:dateTime ;
+    dcterms:description "[In element 'html'] The usage of 'xmlns' for prefix definition is deprecated; please use the 'prefix' attribute instead (definition for 'pimspace')" .
+
+
