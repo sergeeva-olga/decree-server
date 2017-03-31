@@ -1,11 +1,12 @@
 from __future__ import print_function
 from pyramid.view import view_config
 from pyramid.config import Configurator
+from pkg_resources import resource_filename
 
 
-@view_config(route_name='hello', renderer='string')
+@view_config(route_name='document', renderer="isu.aquarium:templates/attorney.pt")
 def hello_world(request):
-    return 'Hello World'
+    return {}
 
 
 def static_path(dir):
@@ -14,7 +15,7 @@ def static_path(dir):
 
 def main(config, **settings):
     config = Configurator(settings=settings)
-    config.add_route('hello', '/')
+    config.add_route('document', '/')
 
     for asset in """assets css dist fonts images js""".split():
         config.add_static_view(name=asset, path=static_path(asset))
