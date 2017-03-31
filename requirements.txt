@@ -4,3 +4,4 @@ chameleon
 pyramid_chameleon
 pyramid_debugtoolbar
 cornice
+pymorphy2
