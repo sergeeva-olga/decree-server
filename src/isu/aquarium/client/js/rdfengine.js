@@ -23,6 +23,8 @@ function setupDispMode() {
   });
   propagateEditable();
 };
+
+
 function propagateEditable() {
   var editables = $('[datatype]');
   editables.each(function(){
@@ -31,7 +33,30 @@ function propagateEditable() {
     var id = e.attr("id");
     if (id != undefined) {
       var eid = jqesc(id);
-      var disps = $(`${eid}:not([datatype])`).text(val);
+      $(`${eid}:not([datatype])`).each(function(){
+        var disp=$(this); // tag <span ... >
+        var gen=disp.attr("data-case");
+        if (gen != undefined) {
+          var query = {
+            "phrase": val,
+            "case": gen,
+            "all": true
+          };
+          $.ajax({
+            type: "POST",
+            url: "/api/morphy",
+            data: JSON.stringify( query ),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(answer){
+              disp.text(answer.phrase);
+            },
+            failure: function(errMsg) {
+              alert(errMsg);
+            }
+          });
+        };
+      });
     };
   });
 };

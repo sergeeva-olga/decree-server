@@ -5,8 +5,13 @@ from pkg_resources import resource_filename
 
 
 @view_config(route_name='document', renderer="isu.aquarium:templates/attorney.pt")
-def hello_world(request):
+def document(request):
     return {}
+
+
+@view_config(route_name="api-morphy", renderer='json', request_method="POST")
+def api_morphy(request):
+    return {"phrase": "Hello, You ...."}
 
 
 def static_path(dir):
@@ -16,6 +21,7 @@ def static_path(dir):
 def main(config, **settings):
     config = Configurator(settings=settings)
     config.add_route('document', '/')
+    config.add_route('api-morphy', '/api/morphy')
 
     for asset in """assets css dist fonts images js""".split():
         config.add_static_view(name=asset, path=static_path(asset))
