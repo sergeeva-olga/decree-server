@@ -74,3 +74,6 @@ upd-cat: pot update-ru comp-cat
 
 clean:
 	$(PYTHON) setup.py clean
+
+serve:
+	pserve development.ini --reload

@@ -1,1 +1,6 @@
 #zope.component[zcml]
+pyramid
+chameleon
+pyramid_chameleon
+pyramid_debugtoolbar
+cornice
