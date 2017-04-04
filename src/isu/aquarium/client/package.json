@@ -2,6 +2,9 @@
   "description": "A small decree document template server and editor",
   "version": "0.0.1",
   "devDependencies": {
-    "http-server": "~0.9.0"
+    "//":{ "http-server": "~0.9.0" },
+    "//":{ "rdflib": "~0.14.1" },
+    "backbone": "*",
+    "jquery":"*"
   }
 }

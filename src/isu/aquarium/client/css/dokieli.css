@@ -1,0 +1,14 @@
+.t {
+    -webkit-transform-origin: top left;
+    -moz-transform-origin: top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left;
+    -webkit-transform: scale(0.25);
+    -moz-transform: scale(0.25);
+    -o-transform: scale(0.25);
+    -ms-transform: scale(0.25);
+    z-index: 2;
+    position: absolute;
+    white-space: pre;
+    overflow: visible;
+}
