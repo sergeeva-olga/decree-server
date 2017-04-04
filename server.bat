@@ -1,2 +1,2 @@
-c:\py\Scripts\pserve development.ini --reload
+c:\py36\Scripts\pserve development.ini --reload
 rem c:\python35\Scripts\pserve

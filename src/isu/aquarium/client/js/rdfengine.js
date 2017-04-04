@@ -80,41 +80,23 @@ $(document).ready(function(){
     }
   });
   $('#app-control-save').click(function(){
-    alert("Not work");
-    return;
-    var jsdata=new Object();
-    var docroot=$("#main-document");
-    var editables = docroot.find(".edit");
-    data = jsdata["main-document"] = new Object();
-    editables.each(function(){
-      var e = $(this);
-      var val = e.text();
-      var eid = e.attr("id");
-      var parts = eid.split(".");
-      var d = data;
-      parts.slice(0, -1).forEach(function(part, idx, arr){
-        if (part in d) {
-        } else {
-          d[part]=new Object();
-        };
-        d=d[part];
+    var docroot=$("#main-document-container");
+    var text = docroot.html();
+    $.ajax({
+      type: "POST",
+      url: "/api/save",
+      data: text,
+      contentType: "application/x-xhtml, charset=utf-8",
+      dataType: "json",
+      success: function(answer){
+        $("#message").html(`<div class="alert alert-success"
+                            role="alert">Документ успешно сохранен!</div>&nbsp;&nbsp;&nbsp;`);
+      },
+      failure: function(errMsg) {
+        alert(errMsg);
+      }
       });
 
-      d[parts[parts.length - 1]]=val;
-
-    });
-    var uri="http://irnok.net/fake-doc.html";
-    var store = $rdf.graph();
-    var mdoc = $("html").html();
-    var mimeType = "application/xhtml+xml";
-    try {
-      $rdf.parse(mdoc, store, uri, mimeType);
-    } catch (err) {
-      alert("Error:"+err);
-    }
-    // var triples=store.each(undefined, undefined, undefined);
-    alert (store.length);
-    // alert(JSON.stringify(data));
   });
   $("[datatype]").addClass("edit");
   propagateEditable();
