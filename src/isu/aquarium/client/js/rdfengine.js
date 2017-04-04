@@ -11,7 +11,10 @@ function setupEditMode() {
     size = Number(size * 1.2);
     e.wrapInner(`<input value="${val}" class="edit-field form-inline" size="${size}" />`);
   });
+  setDatabaseEnabled(false);
+  setSaveEnabled(false);
 };
+
 function setupDispMode() {
   var editables = $('.edit-field');
   editables.each(function(){
@@ -22,7 +25,20 @@ function setupDispMode() {
     e.text(val);
   });
   propagateEditable();
+  setDatabaseEnabled(true);
+  setSaveEnabled(true);
 };
+
+function setDatabaseEnabled(val) {
+  $("#app-control-database").prop('disabled', ! val);
+};
+
+function setSaveEnabled(val) {
+  $("#app-control-save").prop('disabled', ! val);
+  $("#app-control-save-as").prop('disabled', ! val);
+  $("menu button.show").prop('disabled', ! val);
+};
+
 
 
 
@@ -111,6 +127,9 @@ $(document).ready(function(){
       }
       });
 
+  });
+  $("#app-control-database").click(function(){
+    alert("Save");
   });
   $("[datatype]").addClass("edit");
   propagateEditable();

@@ -106,7 +106,11 @@
                     ><span class="fa fa-edit" id="app-control-button-icon"/></button><button id="app-control-save"
                                                                                              class="btn btn-success"
                                                                                      ><span class="fa fa-save" id="app-control-save-icon"/></button>
-                    <span>&nbsp;&nbsp;&nbsp;</span><span class="fa fa-file-o"/>&nbsp;&nbsp;&nbsp;<span>Доверенность на получение заработной платы</span>
+                    <span>&nbsp;&nbsp;&nbsp;</span><span class="fa fa-file-o"/>&nbsp;&nbsp;&nbsp;<span>Доверенность на получение заработной платы</span>&nbsp;&nbsp;&nbsp;<button
+                                                                                                                                                                                       id="app-control-database"
+                                                                                                                                                                                       class="btn btn-primary"><span
+                                                                                                                                                                                                                   class="fa fa-database"
+                                                                                                                                                                                                                   id="app-control-database-icon"/></button>
                 </div>
                 <div id="message"></div>
                 <div id="main-document-container">
