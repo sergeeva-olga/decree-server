@@ -106,8 +106,9 @@
                     ><span class="fa fa-edit" id="app-control-button-icon"/></button><button id="app-control-save"
                                                                                              class="btn btn-success"
                                                                                      ><span class="fa fa-save" id="app-control-save-icon"/></button>
-                    <span>&nbsp;&nbsp;&nbsp;</span><span class="fa fa-file-o"/>&nbsp;&nbsp;&nbsp;<div id="message"></div><span>Доверенность на получение заработной платы</span>
+                    <span>&nbsp;&nbsp;&nbsp;</span><span class="fa fa-file-o"/>&nbsp;&nbsp;&nbsp;<span>Доверенность на получение заработной платы</span>
                 </div>
+                <div id="message"></div>
                 <div id="main-document-container">
                     <article typeof="schema:Article foaf:Document"
                              resource="#letter-of-attorney-95aa0538-1912-11e7-bb51-002354567223"

@@ -25,6 +25,7 @@ function setupDispMode() {
 };
 
 
+
 function propagateEditable() {
   var editables = $('[datatype]');
   editables.each(function(){
@@ -61,6 +62,20 @@ function propagateEditable() {
   });
 };
 
+function alert_widget(level, message) {
+  var icon = {
+    "danger":"ban",
+    "success":"check"
+  }[level];
+  return `<div class="alert alert-${level} alert-dismissible" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <i class="icon fa fa-${icon}"></i>&nbsp;&nbsp;&nbsp;
+  ${message}
+</div>`
+}
+
 $(document).ready(function(){
   $("#app-control-button").click(function(){
     // $("p").hide();
@@ -89,8 +104,7 @@ $(document).ready(function(){
       contentType: "application/x-xhtml, charset=utf-8",
       dataType: "json",
       success: function(answer){
-        $("#message").html(`<div class="alert alert-success"
-                            role="alert">Документ успешно сохранен!</div>&nbsp;&nbsp;&nbsp;`);
+        $("#message").html(alert_widget("success", "Документ успешно сохранен!"));
       },
       failure: function(errMsg) {
         alert(errMsg);
