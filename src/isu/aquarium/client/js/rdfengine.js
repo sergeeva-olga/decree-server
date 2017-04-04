@@ -80,6 +80,8 @@ $(document).ready(function(){
     }
   });
   $('#app-control-save').click(function(){
+    alert("Not work");
+    return;
     var jsdata=new Object();
     var docroot=$("#main-document");
     var editables = docroot.find(".edit");
