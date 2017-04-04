@@ -37,6 +37,11 @@ def api_morphy(request):
             new_phrase.append(lean(word, case=query["case"]))
     return {"phrase": " ".join(new_phrase)}
 
+@view_config(route_name="api-save", renderer='json', request_method="POST")
+def api_morphy(request):
+    body = request.body
+    print(body)
+    return {"result": "ok", "error":None}
 
 def static_path(dir):
     return 'isu.aquarium:' + 'client/' + dir
@@ -46,6 +51,7 @@ def main(config, **settings):
     config = Configurator(settings=settings)
     config.add_route('document', '/')
     config.add_route('api-morphy', '/api/morphy')
+    config.add_route('api-save', '/api/save')
 
     for asset in """assets css dist fonts images js""".split():
         config.add_static_view(name=asset, path=static_path(asset))
