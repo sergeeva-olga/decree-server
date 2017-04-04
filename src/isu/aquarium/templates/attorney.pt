@@ -108,11 +108,13 @@
                                                                                      ><span class="fa fa-save" id="app-control-save-icon"/></button>
                     <span>&nbsp;&nbsp;&nbsp;</span><span class="fa fa-file-o"/>&nbsp;&nbsp;&nbsp;<div id="message"></div><span>Доверенность на получение заработной платы</span>
                 </div>
-                <div id="main-document">
+                <div id="main-document-container">
                     <article typeof="schema:Article foaf:Document"
                              resource="#letter-of-attorney-95aa0538-1912-11e7-bb51-002354567223"
                              data-uuid="95aa0538-1912-11e7-bb51-002354567223"
-                             class="app-control-body panel-body">
+                             class="app-control-body panel-body"
+                             id="main-document"
+                    >
                         <header>
                             <h2>Доверенность</h2>
                             <p class="centering">на получение заработной платы</p>

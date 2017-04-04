@@ -80,7 +80,7 @@ $(document).ready(function(){
     }
   });
   $('#app-control-save').click(function(){
-    var docroot=$("#main-document");
+    var docroot=$("#main-document-container");
     var text = docroot.html();
     $.ajax({
       type: "POST",
