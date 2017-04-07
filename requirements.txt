@@ -6,3 +6,5 @@ pyramid_debugtoolbar
 cornice
 pymorphy2
 lxml
+rdflib
+rdflib-jsonld

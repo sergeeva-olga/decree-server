@@ -5,16 +5,72 @@ from pkg_resources import resource_filename
 import pymorphy2
 from pymorphy2.tokenizers import simple_word_tokenize
 from lxml import html
+from lxml import etree
 import os, os.path
+import rdflib
 
 morpher = pymorphy2.MorphAnalyzer()
+BASE_URL= "http://irnok.net:8080/" # + UUID + ".xhtml"
+
+def asBaseURL(uuid):
+    return BASE_URL+uuid+".xhtml"
 
 SAVE_DIR=resource_filename("isu.aquarium","documents")
 
+class DocumentData(object):
+    def __init__(self, request):
+        if hasattr(request, "matchdict"):
+            return self.load(uuid=request.matchdict["uuid"])
+        else:
+            return self.get_body_data(request)
+
+    def load(self, uuid):
+        i = open(self.filename(uuid), "r")
+        self.body = i.read()
+        i.close()
+
+    def get_body_data(self, request):
+        self.body = request.body.decode("utf8")
+        self.xml = html.fromstring(self.body)
+        root = self.root = self.xml.xpath('//*[@id="main-document"]')[0]
+        self.resource=root.get("resource", None)
+        self.uuid=root.get("data-uuid", None)
+        self.id=root.get("id", None)
+
+    def filename(self, uuid=None):
+        if uuid is None:
+            uuid=self.uuid
+        if not os.path.isdir(SAVE_DIR):
+            os.makedirs(SAVE_DIR)
+        return os.path.join(SAVE_DIR, uuid+".xhtml")
+
+
+    def save_body(self, overwite):
+        if self.resource is not None:
+            filename = self.filename()
+            if not overwite and os.path.isfile(filename):
+                return {"result": "KO", "error":"Document already exists!"}
+            # Ok, we must save the content
+            o=open(filename,"w")
+            o.write(self.body)
+            o.close()
+            self.index()
+            return {"result": "OK", "error":"Document successfully saved!"}
+        else:
+            return {"result": "KO", "error":"Resource name is not found!"}
+
+    def index(self):
+        url= asBaseURL(self.uuid)
+        txt = etree.tostring(self.xml, encoding=str, pretty_print=True)
+        print(txt)
+        g = rdflib.Graph()
+        g.parse(data=txt, publicID=url)
+
 @view_config(route_name='document',
-             renderer="isu.aquarium:templates/attorney.pt")
+             renderer="isu.aquarium:templates/editor.pt")
 def document(request):
-    return {}
+    doc = DocumentData(request)
+    return {"content":doc.body}
 
 
 def lean(word, case):
@@ -40,38 +96,16 @@ def api_morphy(request):
             new_phrase.append(lean(word, case=query["case"]))
     return {"phrase": " ".join(new_phrase)}
 
-def get_body_data(request):
-    body = request.body.decode("utf8")
-    xml = html.fromstring(body)
-    root = xml.xpath('//*[@id="main-document"]')[0]
-    resource=root.get("resource", None)
-    uuid=root.get("data-uuid", None)
-    id=root.get("id", None)
-    return body, resource
 
 @view_config(route_name="api-save-as", renderer='json', request_method="POST")
 def api_save_as(request):
-    body, resource=get_body_data(request)
-    return save_body(body, resource, overwite=False)
+    doc = DocumentData(request)
+    return doc.save_body(overwite=False)
 
 @view_config(route_name="api-save", renderer='json', request_method="POST")
 def api_save(request):
-    body, resource=get_body_data(request)
-    return save_body(body, resource, overwite=True)
-
-def save_body(body, resource, overwite):
-    if resource is not None:
-        if not os.path.isdir(SAVE_DIR):
-            os.makedirs(SAVE_DIR)
-        filename=os.path.join(SAVE_DIR, resource+".xhtml")
-        if not overwite and os.path.isfile(filename):
-            return {"result": "ko", "error":"Document already exists!"}
-        o=open(filename,"w")
-        o.write(body)
-        o.close()
-        return {"result": "ok", "error":None}
-    else:
-        return {"result": "ko", "error":"Resource name is not found"}
+    doc = DocumentData(request)
+    return doc.save_body(overwite=True)
 
 def static_path(dir):
     return 'isu.aquarium:' + 'client/' + dir
@@ -79,7 +113,7 @@ def static_path(dir):
 
 def main(config, **settings):
     config = Configurator(settings=settings)
-    config.add_route('document', '/')
+    config.add_route('document', '/{uuid}.xhtml')
     config.add_route('api-morphy', '/api/morphy')
     config.add_route('api-save', '/api/save')
     config.add_route('api-save-as', '/api/save-as')

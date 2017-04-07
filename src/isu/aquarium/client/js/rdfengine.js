@@ -111,8 +111,8 @@ $(document).ready(function(){
     }
   });
   $('#app-control-save').click(function(){
-    var docroot=$("#main-document-container");
-    var text = docroot.html();
+    var container = $("#main-document-container");
+    var text = container.html();
     $.ajax({
       type: "POST",
       url: "/api/save",
