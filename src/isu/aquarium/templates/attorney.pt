@@ -114,15 +114,15 @@
                 </div>
                 <div id="message"></div>
                 <div id="main-document-container">
-                    <article typeof="schema:Article foaf:Document"
-                             resource="#letter-of-attorney-95aa0538-1912-11e7-bb51-002354567223"
+                    <article typeof="schema:Article foaf:Document dbr:Power_of_attorney"
+                             resource="#letter-of-attorney"
                              data-uuid="95aa0538-1912-11e7-bb51-002354567223"
                              class="app-control-body panel-body"
                              id="main-document"
                     >
                         <header>
-                            <h2>Доверенность</h2>
-                            <p class="centering">на получение заработной платы</p>
+                            <h2 property="dc:title">Доверенность</h2>
+                            <p class="centering" property="dc:title">на получение заработной платы</p>
                         </header>
                         <!--
                              letter-of-attorney
@@ -130,7 +130,7 @@
                            -->
                         <section id="regulation">
                             <p>Я,
-                                <span property="fibol:designatesSignatory" typeof="fibol:Signatory foaf:Person" resource="#signatory">
+                                <span property="fibol:designatesSignatory" typeof="fibol:Signatory foaf:Person dbr:Principal" resource="#principal">
                                     <span property="foaf:name" id="signatory-name" datatype="xsd:String">Гирпа Елена Викторовна</span>,
                                     <span property="adoc:hasPassport" resource="#signatory-passport" typeof="acrt:Certification">
                                         <span property="acrt:qualification"
@@ -163,7 +163,7 @@
                                     <span property="vcard:hasStreetAddress"  datatype="xsd:String">Московская область, г. Мытищи, Олимпийский проспект, д. 23, кв. 14</span>
                                 </span>
                                 доверяю
-                                <span property="fiborel:confers" typeof="fibol:PowerOfAttorney foaf:Person" resource="#attorney">
+                                <span property="fiborel:confers" typeof="dbr:AttorneyInFact foaf:Person" resource="#attorney">
                                     <span data-case="dative" property="foaf:name" datatype="xsd:String"
                                     >Чесноковой Ирине Юрьевне</span>,
                                     <span property="adoc:hasPassport" resource="#attorney-passport" typeof="acrt:Certification"><span property="acrt:qualification" resource="dbr:Passport">паспорт</span>
@@ -214,12 +214,5 @@
             </div>
         </main>
         <!-- Do not add any visible HTML below this line -->
-        <script type="text/javascript">
-         /*
-            var vie=VIE();
-            var insts = vie.RDFaEntities.getInstances();
-            console.log(insts);
-          */
-        </script>
     </body>
 </html>
