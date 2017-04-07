@@ -9,6 +9,14 @@ from lxml import etree
 import os, os.path
 import rdflib
 from pyramid.renderers import render
+import json
+
+from elasticsearch import Elasticsearch
+
+ES = Elasticsearch(
+    ['localhost'],
+    http_auth=("elastic","elastic321")
+)
 
 morpher = pymorphy2.MorphAnalyzer()
 BASE_URL= "http://irnok.net:8080/" # + UUID + ".xhtml"
@@ -71,6 +79,11 @@ class DocumentData(object):
         o=open(filename, "wb")
         o.write(ser)
         o.close()
+        js = json.loads(ser)
+        graph = {"graph": js}
+        rc=ES.index(index="aquarium", doc_type="document",
+                    id=self.uuid, body=graph, refresh=True)
+        # print ("Elastic:{}".format(rc))
 
 @view_config(route_name='document',
              renderer="isu.aquarium:templates/editor.pt")
