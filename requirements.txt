@@ -8,3 +8,4 @@ pymorphy2
 lxml
 rdflib
 rdflib-jsonld
+html5lib

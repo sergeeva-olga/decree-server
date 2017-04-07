@@ -8,6 +8,7 @@ from lxml import html
 from lxml import etree
 import os, os.path
 import rdflib
+from pyramid.renderers import render
 
 morpher = pymorphy2.MorphAnalyzer()
 BASE_URL= "http://irnok.net:8080/" # + UUID + ".xhtml"
@@ -20,9 +21,9 @@ SAVE_DIR=resource_filename("isu.aquarium","documents")
 class DocumentData(object):
     def __init__(self, request):
         if hasattr(request, "matchdict"):
-            return self.load(uuid=request.matchdict["uuid"])
-        else:
-            return self.get_body_data(request)
+            if "document_uuid" in request.matchdict:
+                return self.load(uuid=request.matchdict["document_uuid"])
+        return self.get_body_data(request)
 
     def load(self, uuid):
         i = open(self.filename(uuid), "r")
@@ -62,9 +63,11 @@ class DocumentData(object):
     def index(self):
         url= asBaseURL(self.uuid)
         txt = etree.tostring(self.xml, encoding=str, pretty_print=True)
-        print(txt)
-        g = rdflib.Graph()
-        g.parse(data=txt, publicID=url)
+        result = render("isu.aquarium:templates/editor.pt", {"content":txt})
+        print(result)
+        g=rdflib.Graph()
+        g.parse(data=result, publicID=url, format='rdfa')
+        print(len(g))
 
 @view_config(route_name='document',
              renderer="isu.aquarium:templates/editor.pt")
@@ -113,7 +116,7 @@ def static_path(dir):
 
 def main(config, **settings):
     config = Configurator(settings=settings)
-    config.add_route('document', '/{uuid}.xhtml')
+    config.add_route('document', '/{document_uuid}.xhtml')
     config.add_route('api-morphy', '/api/morphy')
     config.add_route('api-save', '/api/save')
     config.add_route('api-save-as', '/api/save-as')
