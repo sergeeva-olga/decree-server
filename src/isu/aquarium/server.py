@@ -64,10 +64,13 @@ class DocumentData(object):
         url= asBaseURL(self.uuid)
         txt = etree.tostring(self.xml, encoding=str, pretty_print=True)
         result = render("isu.aquarium:templates/editor.pt", {"content":txt})
-        print(result)
         g=rdflib.Graph()
         g.parse(data=result, publicID=url, format='rdfa')
-        print(len(g))
+        ser = g.serialize(format='json-ld')
+        filename=self.filename().replace(".xhtml",".json")
+        o=open(filename, "wb")
+        o.write(ser)
+        o.close()
 
 @view_config(route_name='document',
              renderer="isu.aquarium:templates/editor.pt")
