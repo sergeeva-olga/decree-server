@@ -4,6 +4,7 @@ from pyramid.config import Configurator
 from pkg_resources import resource_filename
 import pymorphy2
 from pymorphy2.tokenizers import simple_word_tokenize
+# from icc.mvw.interfaces import IView
 from lxml import html
 from lxml import etree
 import os
@@ -15,6 +16,7 @@ import json
 from elasticsearch import Elasticsearch
 
 ES = Elasticsearch(['localhost'], http_auth=("elastic", "elastic321"))
+INDEX = "aquarium"
 
 morpher = pymorphy2.MorphAnalyzer()
 BASE_URL = "http://irnok.net:8080/"  # + UUID + ".xhtml"
@@ -89,7 +91,7 @@ class DocumentData(object):
         js = json.loads(ser)
         graph = {"graph": js}
         rc = ES.index(
-            index="aquarium",
+            index=INDEX,
             doc_type="document",
             id=self.uuid,
             body=graph,
@@ -102,6 +104,33 @@ class DocumentData(object):
 def document(request):
     doc = DocumentData(request)
     return {"content": doc.body}
+
+
+@view_config(
+    route_name="search", renderer="isu.aquarium:templates/editor.pt"
+)
+def search(request):
+    form = """
+    <form action="search" method="POST">
+    Query a word:
+    <input type="strong", name="q" value="5623"/>
+    <input type="submit" value="Ok"></input><br/>
+    </form>
+    """
+    query = request.POST.get("q", None)
+    if query is not None:
+        query = query.strip()
+        if query:
+            form += "<br/>Query: {}</br>".format(query)
+            rc = ES.search(index=INDEX, doc_type="document",
+                           # body={"query": {"match_all": {}}}
+                           # body={"query": {"match": {"@value": query}}}
+                           body={"query": {"query_string": {"query": query}}}
+                           )
+            for hit in rc['hits']['hits']:
+                _id = hit["_id"]
+                form += "<a href=\"{}.xhtml\">{}</a><br/>".format(_id, _id)
+    return {"content": form}
 
 
 def lean(word, case):
@@ -147,6 +176,7 @@ def static_path(dir):
 def main(config, **settings):
     config = Configurator(settings=settings)
     config.add_route('document', '/{document_uuid}.xhtml')
+    config.add_route('search', '/search')
     config.add_route('api-morphy', '/api/morphy')
     config.add_route('api-save', '/api/save')
     config.add_route('api-save-as', '/api/save-as')

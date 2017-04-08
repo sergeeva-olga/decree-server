@@ -129,6 +129,9 @@ $(document).ready(function(){
 
   });
   $("#app-control-medium-editor").click(function(){
+    // var editor = new MediumEditor('#main-document-container', {
+    var editor = new MediumEditor('.editable');
+
     $("#message").html(alert_widget("success", "Включен редактор."));
   });
   $("#app-control-database").click(function(){
