@@ -6,25 +6,26 @@ import pymorphy2
 from pymorphy2.tokenizers import simple_word_tokenize
 from lxml import html
 from lxml import etree
-import os, os.path
+import os
+import os.path
 import rdflib
 from pyramid.renderers import render
 import json
 
 from elasticsearch import Elasticsearch
 
-ES = Elasticsearch(
-    ['localhost'],
-    http_auth=("elastic","elastic321")
-)
+ES = Elasticsearch(['localhost'], http_auth=("elastic", "elastic321"))
 
 morpher = pymorphy2.MorphAnalyzer()
-BASE_URL= "http://irnok.net:8080/" # + UUID + ".xhtml"
+BASE_URL = "http://irnok.net:8080/"  # + UUID + ".xhtml"
+
 
 def asBaseURL(uuid):
-    return BASE_URL+uuid+".xhtml"
+    return BASE_URL + uuid + ".xhtml"
 
-SAVE_DIR=resource_filename("isu.aquarium","documents")
+
+SAVE_DIR = resource_filename("isu.aquarium", "documents")
+
 
 class DocumentData(object):
     def __init__(self, request):
@@ -42,61 +43,65 @@ class DocumentData(object):
         self.body = request.body.decode("utf8")
         self.xml = html.fromstring(self.body)
         root = self.root = self.xml.xpath('//*[@id="main-document"]')[0]
-        self.resource=root.get("resource", None)
-        self.uuid=root.get("data-uuid", None)
-        self.id=root.get("id", None)
+        self.resource = root.get("resource", None)
+        self.uuid = root.get("data-uuid", None)
+        self.id = root.get("id", None)
 
     def filename(self, uuid=None):
         if uuid is None:
-            uuid=self.uuid
+            uuid = self.uuid
         if not os.path.isdir(SAVE_DIR):
             os.makedirs(SAVE_DIR)
-        return os.path.join(SAVE_DIR, uuid+".xhtml")
-
+        return os.path.join(SAVE_DIR, uuid + ".xhtml")
 
     def save_body(self, overwite):
         if self.resource is not None:
             filename = self.filename()
             if not overwite and os.path.isfile(filename):
-                return {"result": "KO", "error":"Document already exists!"}
+                return {"result": "KO", "error": "Document already exists!"}
             # Ok, we must save the content
-            o=open(filename,"w")
+            o = open(filename, "w")
             o.write(self.body)
             o.close()
             self.index()
-            return {"result": "OK", "error":"Document successfully saved!"}
+            return {"result": "OK", "error": "Document successfully saved!"}
         else:
-            return {"result": "KO", "error":"Resource name is not found!"}
+            return {"result": "KO", "error": "Resource name is not found!"}
 
     def index(self):
-        url= asBaseURL(self.uuid)
+        url = asBaseURL(self.uuid)
         txt = etree.tostring(self.xml, encoding=str, pretty_print=True)
-        result = render("isu.aquarium:templates/editor.pt", {"content":txt})
+        result = render("isu.aquarium:templates/editor.pt", {"content": txt})
 
-        od = open("document.xhtml","w").write(result)
+        od = open("document.xhtml", "w").write(result)
 
-        g=rdflib.Graph()
+        g = rdflib.Graph()
         g.parse(data=result, publicID=url, format='rdfa')
         ser = g.serialize(format='json-ld')
 
-        od = open("document.jsonld","wb").write(ser)
-        od = open("document.ttl","wb").write(g.serialize(format="ttl"))
+        od = open("document.jsonld", "wb").write(ser)
+        od = open("document.ttl", "wb").write(g.serialize(format="ttl"))
 
-        filename=self.filename().replace(".xhtml",".jsonld")
-        o=open(filename, "wb")
+        filename = self.filename().replace(".xhtml", ".jsonld")
+        o = open(filename, "wb")
         o.write(ser)
         o.close()
         js = json.loads(ser)
         graph = {"graph": js}
-        rc=ES.index(index="aquarium", doc_type="document",
-                    id=self.uuid, body=graph, refresh=True)
+        rc = ES.index(
+            index="aquarium",
+            doc_type="document",
+            id=self.uuid,
+            body=graph,
+            refresh=True)
         # print ("Elastic:{}".format(rc))
 
-@view_config(route_name='document',
-             renderer="isu.aquarium:templates/editor.pt")
+
+@view_config(
+    route_name='document', renderer="isu.aquarium:templates/editor.pt")
 def document(request):
     doc = DocumentData(request)
-    return {"content":doc.body}
+    return {"content": doc.body}
 
 
 def lean(word, case):
@@ -128,10 +133,12 @@ def api_save_as(request):
     doc = DocumentData(request)
     return doc.save_body(overwite=False)
 
+
 @view_config(route_name="api-save", renderer='json', request_method="POST")
 def api_save(request):
     doc = DocumentData(request)
     return doc.save_body(overwite=True)
+
 
 def static_path(dir):
     return 'isu.aquarium:' + 'client/' + dir
