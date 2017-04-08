@@ -45,10 +45,10 @@ button.app-control-panel {
 span.edit-field, input.edit-field {
 }
 
-div.left {
+.left {
     float: left;
 }
 
-div.right {
+.right {
     float: right;
 }

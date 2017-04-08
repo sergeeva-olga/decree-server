@@ -128,8 +128,11 @@ $(document).ready(function(){
       });
 
   });
+  $("#app-control-medium-editor").click(function(){
+    $("#message").html(alert_widget("success", "Включен редактор."));
+  });
   $("#app-control-database").click(function(){
-    alert("Save");
+    $("#message").html(alert_widget("success", "Доступ к хранилищу."));
   });
   $("[datatype]").addClass("edit");
   propagateEditable();
