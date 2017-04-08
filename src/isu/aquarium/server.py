@@ -73,14 +73,14 @@ class DocumentData(object):
         txt = etree.tostring(self.xml, encoding=str, pretty_print=True)
         result = render("isu.aquarium:templates/editor.pt", {"content": txt})
 
-        od = open("document.xhtml", "w").write(result)
+        open("document.xhtml", "w").write(result)
 
         g = rdflib.Graph()
         g.parse(data=result, publicID=url, format='rdfa')
         ser = g.serialize(format='json-ld')
 
-        od = open("document.jsonld", "wb").write(ser)
-        od = open("document.ttl", "wb").write(g.serialize(format="ttl"))
+        open("document.jsonld", "wb").write(ser)
+        open("document.ttl", "wb").write(g.serialize(format="ttl"))
 
         filename = self.filename().replace(".xhtml", ".jsonld")
         o = open(filename, "wb")
