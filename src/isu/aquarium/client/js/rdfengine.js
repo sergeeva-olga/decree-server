@@ -40,8 +40,6 @@ function setSaveEnabled(val) {
 };
 
 
-
-
 function propagateEditable() {
   var editables = $('[datatype]');
   editables.each(function(){

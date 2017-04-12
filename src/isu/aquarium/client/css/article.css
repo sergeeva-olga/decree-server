@@ -46,3 +46,9 @@ section {
 div.hidden {
     display: none;
 }
+
+.toolbar
+{
+    display: block;
+    clear:both;
+}

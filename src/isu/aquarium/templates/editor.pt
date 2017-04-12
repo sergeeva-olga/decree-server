@@ -40,38 +40,42 @@
     >
         <main lang="ru" resource="#annotation" typeof="oa:Annotation">
             <div class="panel panel-primary" style="margin:1em; max-width:70em;">
-                <div class="panel-heading">
+                <div class="panel-heading toolbar">
+                    <span class="btn-group ">
+                        <button class="btn btn-primary"
+                                id="app-control-button"
+                                data-phase="disp">
+                            <span class="fa fa-edit" id="app-control-button-icon"/>
+                        </button>
+                        <button
+                            id="app-control-medium-editor"
+                            class="btn btn-primary">
+                            <span
+                                class="fa fa-pencil-square"
+                                id="app-control-ME-icon"/>
+                        </button>
+                    </span>
+                    <span class="fa fa-file-o" style="margin-left:3em;"></span>
                     <span
-                        class="fa fa-file-o"
-                    /><span
-                          style="margin-left:1em;margin-right:3em;"
-                          id="document-display-title">Доверенность на получение заработной платы
-                    </span><button class="btn btn-primary"
-                                   id="app-control-button"
-                                   data-phase="disp"
-                           ><span class="fa fa-edit" id="app-control-button-icon"
-                            /></button
-                              ><button
-                                   id="app-control-save"
-                                   class="btn btn-success"
-                               ><span
-                                    class="fa fa-save"
-                                    id="app-control-save-icon"
-                                /></button
-                                  ><button
-                                       id="app-control-medium-editor"
-                                       class="btn btn-primary"
-                                   ><span
-                                        class="fa fa-pencil-square"
-                                        id="app-control-ME-icon"
-                                    /></button
-                                      ><button
-                                           id="app-control-database"
-                                           class="btn btn-primary"
-                                       ><span
-                                            class="fa fa-database"
-                                            id="app-control-database-icon"
-                                        /></button>
+                        style="margin-left:1em;margin-right:3em;"
+                        id="document-display-title">Доверенность на получение заработной платы
+                    </span>
+                    <span class="btn-group right">
+                        <button
+                            id="app-control-save"
+                            class="btn btn-success">
+                            <span
+                                class="fa fa-save"
+                                id="app-control-save-icon"/>
+                        </button>
+                        <button
+                            id="app-control-database"
+                            class="btn btn-primary">
+                            <span
+                                class="fa fa-database"
+                                id="app-control-database-icon"/>
+                        </button>
+                    </span>
                 </div>
                 <div id="message"></div>
                 <div id="main-document-container" tal:content="structure content" class="editable">
