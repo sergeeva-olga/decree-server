@@ -52,3 +52,17 @@ span.edit-field, input.edit-field {
 .right {
     float: right;
 }
+
+.centerdiv {
+    /*
+    display: table;
+    margin: 0 auto;
+*/
+        margin: 0em auto;
+        position: relative;
+        padding: 1em;
+        /*
+        background-color: #FFF;
+        background: linear-gradient(to right, #dff, #dfd);
+*/
+}

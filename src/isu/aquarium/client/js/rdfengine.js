@@ -1,6 +1,7 @@
 function jqesc( myid ) {
   return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
 };
+
 function setupEditMode() {
   var editables = $('[datatype]');
   editables.each(function(){
@@ -13,6 +14,7 @@ function setupEditMode() {
   });
   setDatabaseEnabled(false);
   setSaveEnabled(false);
+  setGEditEnabled(false);
 };
 
 function setupDispMode() {
@@ -27,6 +29,7 @@ function setupDispMode() {
   propagateEditable();
   setDatabaseEnabled(true);
   setSaveEnabled(true);
+  setGEditEnabled(true);
 };
 
 function setDatabaseEnabled(val) {
@@ -37,6 +40,10 @@ function setSaveEnabled(val) {
   $("#app-control-save").prop('disabled', ! val);
   $("#app-control-save-as").prop('disabled', ! val);
   $("menu button.show").prop('disabled', ! val);
+};
+
+function setGEditEnabled(val) {
+  $("#app-control-medium-editor").prop('disabled', ! val);
 };
 
 
@@ -133,7 +140,7 @@ $(document).ready(function(){
     $("#message").html(alert_widget("success", "Включен редактор."));
   });
   $("#app-control-database").click(function(){
-    $("#message").html(alert_widget("success", "Доступ к хранилищу."));
+    // $("#message").html(alert_widget("success", "Доступ к хранилищу."));
   });
   $("[datatype]").addClass("edit");
   propagateEditable();

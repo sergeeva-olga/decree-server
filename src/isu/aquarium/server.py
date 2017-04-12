@@ -12,6 +12,8 @@ import os.path
 import rdflib
 from pyramid.renderers import render
 import json
+import pprint
+from collections import namedtuple
 
 from elasticsearch import Elasticsearch
 
@@ -30,6 +32,7 @@ SAVE_DIR = resource_filename("isu.aquarium", "documents")
 
 
 class DocumentData(object):
+
     def __init__(self, request):
         if hasattr(request, "matchdict"):
             if "document_uuid" in request.matchdict:
@@ -105,18 +108,61 @@ def document(request):
     doc = DocumentData(request)
     return {"content": doc.body}
 
+Row = namedtuple('Row', ['id', 'docname', 'personname'])
+
+
+class SearchView(object):
+
+    def __init__(self, rc):
+        self.rc = rc
+        self.G = rdflib.Graph()
+        self.load_graphs()
+
+    @property
+    def total(self):
+        return int(self.rc["hits"]["total"])
+
+    @property
+    def empty(self):
+        return self.total == 0
+
+    @property
+    def graphs(self):
+        for g in self.rc["hits"]["hits"]:
+            yield g["_source"]["graph"]
+
+    def load_graphs(self):
+        for g in self.graphs:
+            self.G.parse(data=json.dumps(g), format='json-ld')
+
+    @property
+    def items(self):
+        Q = """
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+PREFIX oa: <http://www.w3.org/ns/oa#>
+SELECT ?ID ?doc_name ?person_name WHERE {
+  ?doc a foaf:Document.
+  ?doc dct:title ?doc_name .
+  ?doc oa:id ?ID .
+  ?doc bibo:owner ?p .
+  ?p a foaf:Person .
+  ?p foaf:name ?person_name .
+}
+LIMIT 10
+        """
+        for id, d, p in self.G.query(Q):
+            yield Row(id=id, docname=d, personname=p)
+
 
 @view_config(
-    route_name="search", renderer="isu.aquarium:templates/editor.pt"
+    route_name="search", renderer="isu.aquarium:templates/search.pt"
 )
 def search(request):
-    form = """
-    <form action="search" method="POST">
-    Query a word:
-    <input type="strong", name="q" value="5623"/>
-    <input type="submit" value="Ok"></input><br/>
-    </form>
-    """
+    form = ""
     query = request.POST.get("q", None)
     if query is not None:
         query = query.strip()
@@ -127,10 +173,17 @@ def search(request):
                            # body={"query": {"match": {"@value": query}}}
                            body={"query": {"query_string": {"query": query}}}
                            )
+            view = SearchView(rc)
+            for i in view.items:
+                pprint.pprint(i)
+
             for hit in rc['hits']['hits']:
                 _id = hit["_id"]
                 form += "<a href=\"{}.xhtml\">{}</a><br/>".format(_id, _id)
-    return {"content": form}
+    else:
+        query = ""
+        view = None
+    return {"content": form, "query": query, "view": view}
 
 
 def lean(word, case):
@@ -176,7 +229,7 @@ def static_path(dir):
 def main(config, **settings):
     config = Configurator(settings=settings)
     config.add_route('document', '/{document_uuid}.xhtml')
-    config.add_route('search', '/search')
+    config.add_route('search', '/')
     config.add_route('api-morphy', '/api/morphy')
     config.add_route('api-save', '/api/save')
     config.add_route('api-save-as', '/api/save-as')
