@@ -39,8 +39,8 @@
           typeof="schema:CreativeWork sioc:Post prov:Entity"
     >
         <main lang="ru" resource="#annotation" typeof="oa:Annotation">
-            <div class="panel panel-primary" style="margin:1em; max-width:70em;">
-                <div class="panel-heading toolbar">
+            <div class="panel panel-primary" style="margin:1em; max-width:70em;" id="main-panel">
+                <div class="panel-heading toolbar" id="main-toolbar">
                     <span class="btn-group ">
                         <button class="btn btn-primary"
                                 id="app-control-button"
