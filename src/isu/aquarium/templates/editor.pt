@@ -68,6 +68,13 @@
                                 class="fa fa-save"
                                 id="app-control-save-icon"/>
                         </button>
+                        <button
+                            id="app-control-save-as"
+                            class="btn btn-success">
+                            <span
+                                class="fa fa-files-o"
+                                id="app-control-save-as-icon"/>
+                        </button>
                         <a
                             id="app-control-database"
                             class="btn btn-primary"
