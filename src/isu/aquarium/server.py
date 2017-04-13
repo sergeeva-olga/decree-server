@@ -5,6 +5,7 @@ from pkg_resources import resource_filename
 import pymorphy2
 from pymorphy2.tokenizers import simple_word_tokenize
 # from icc.mvw.interfaces import IView
+from isu.aquarium import russian
 from lxml import html
 from lxml import etree
 import os
@@ -199,15 +200,36 @@ def lean(word, case):
                 "вариант существительного!</strong>".format(v))
 
 
+TR = {
+    "nomn": "N",
+    "gent": "G",
+    "datv": "D",
+    "accs": "A",
+    "ablt": "T",
+    "loct": "P",
+}
+
+
 @view_config(route_name="api-morphy", renderer='json', request_method="POST")
 def api_morphy(request):
     query = request.json_body
-    if query["all"]:
-        words = simple_word_tokenize(query["phrase"])
-        new_phrase = []
-        for word in words:
-            new_phrase.append(lean(word, case=query["case"]))
-    return {"phrase": " ".join(new_phrase)}
+    command = query["command"]
+    phrase = query["phrase"]
+    if command == "all":
+        words = simple_word_tokenize(phrase)
+        gender = russian.gender(words, "M", "F", "_")
+        if gender == "_":
+            new_phrase = []
+            for word in words:
+                new_phrase.append(lean(word, case=query["case"]))
+        else:
+            case_ = query["case"]
+            c = TR.get(case_, case_)
+            new_phrase = russian.make_human_case(words, c)
+        return {"phrase": " ".join(new_phrase)}
+    elif command == "gender":
+        p = russian.gender(phrase, query["M"], query["F"], ";-)")
+        return {"phrase": p}
 
 
 @view_config(route_name="api-save-as", renderer='json', request_method="POST")

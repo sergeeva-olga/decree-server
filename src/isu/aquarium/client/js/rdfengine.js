@@ -70,16 +70,13 @@ function propagateEditable() {
       $(`${eid}:not([datatype])`).each(function(){
         var disp=$(this); // tag <span ... >
         var gen=disp.attr("data-case");
-        if (gen != undefined) {
-          var query = {
-            "phrase": val,
-            "case": gen,
-            "all": true
-          };
-          $.ajax({
+        var genF=disp.attr("data-f");
+        var genM=disp.attr("data-m");
+        var query;
+        var ajaxConf={
             type: "POST",
             url: "/api/morphy",
-            data: JSON.stringify( query ),
+            data: undefined,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(answer){
@@ -88,8 +85,24 @@ function propagateEditable() {
             failure: function(errMsg) {
               alert(errMsg);
             }
-          });
         };
+
+        if (gen != undefined) {
+          query = {
+            "phrase": val,
+            "case": gen,
+            "command": "all"
+          };
+        } else {
+          query = {
+            "command":"gender",
+            "phrase": val,
+            "F": genF,
+            "M": genM
+          };
+        };
+        ajaxConf.data=JSON.stringify(query);
+        $.ajax(ajaxConf);
       });
     };
   });

@@ -457,7 +457,7 @@ def make_all(text, case="N"):
 
 def determine_gender(text, default):
     """Defines gender, returns 'M' or 'F'"""
-    if type(text) == bytes:
+    if isinstance(text, str):
         wordlist = text.strip().split()
     else:
         wordlist = text   # suppose it be a list or tuple
@@ -478,7 +478,7 @@ def determine_gender(text, default):
 
 def person_data(text, default=None):
     """Defines gender, returns 'M' or 'F'"""
-    if type(text) == bytes:
+    if isinstance(text, str):
         wordlist = text.strip().split()
     else:
         wordlist = text   # suppose it be a list or tuple
