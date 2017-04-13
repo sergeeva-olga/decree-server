@@ -1,8 +1,11 @@
 from nose.plugins.skip import SkipTest
 from nose.tools import assert_raises
+from isu.aquarium import russian
 
 #@SkipTest
-class BasicTests:
+
+
+class TestsBasic:
 
     def setUp(self):
         pass
@@ -12,3 +15,6 @@ class BasicTests:
 
     def tearDown(self):
         pass
+
+    def test_Russian(self):
+        russian.test_names()
