@@ -45,10 +45,41 @@ button.app-control-panel {
 span.edit-field, input.edit-field {
 }
 
-div.left {
+.left {
     float: left;
 }
 
-div.right {
+.right {
     float: right;
+}
+
+.centerdiv {
+    /*
+    display: table;
+    margin: 0 auto;
+*/
+        margin: 0em auto;
+        position: relative;
+        padding: 1em;
+        /*
+        background-color: #FFF;
+        background: linear-gradient(to right, #dff, #dfd);
+*/
+}
+
+@media print {
+    body {
+    }
+    #pDebug,
+    #main-toolbar {
+        display: none;
+    }
+    #main-panel {
+        font-family: Times New Roman, Fira Sans, sans;
+        font-size: 140%;
+        font-style: bold;
+        border:none;
+        padding:0pt;
+        margin:0pt;
+    }
 }

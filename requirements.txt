@@ -5,3 +5,8 @@ pyramid_chameleon
 pyramid_debugtoolbar
 cornice
 pymorphy2
+lxml
+rdflib
+rdflib-jsonld
+html5lib
+elasticsearch-dsl>=5.0.0,<6.0.0

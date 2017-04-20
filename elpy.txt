@@ -1,0 +1,10 @@
+nose
+elpy
+pyflakes
+jedi
+autopep8
+yapf
+rope
+importmagic
+mock
+

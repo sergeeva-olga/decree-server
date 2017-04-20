@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN"
+          "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd">
+<html lang="ru" xml:lang="ru" id="do-index"
+      version="XHTML+RDFa 1.1"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+>
+    <head>
+        <meta charset="utf-8" />
+        <title>Редактор Документа</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Begin shared CSS values -->
+        <!--
+        <style type="text/css" src="/css/dokieli.css"></style>
+        -->
+        <style type="text/css" src="/css/article.css"></style>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!--
+             <link rel="stylesheet" media="all" href="https://dokie.li/media/css/do.css" />
+           -->
+        <link rel="stylesheet" media="all" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	    <link href="/css/bootstrap.min.css" rel="stylesheet"
+        />
+        <link rel="stylesheet"
+              href="/css/bootstrap-theme.min.css"/>
+	    <!-- <style rel="stylesheet" href="/css/mso.css"></style> -->
+        <link rel="stylesheet" href="/css/medium-editor.css"/>
+        <link rel="stylesheet" href="/css/themes/default.css"/>
+        <link rel="stylesheet"
+              href="/css/document-base.css"
+        />
+    </head>
+    <body prefix="rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs: http://www.w3.org/2000/01/rdf-schema# owl: http://www.w3.org/2002/07/owl# xsd: http://www.w3.org/2001/XMLSchema# dcterms: http://purl.org/dc/terms/ dctypes: http://purl.org/dc/dcmitype/ foaf: http://xmlns.com/foaf/0.1/ vcard: http://www.w3.org/2006/vcard/ns# pimspace: http://www.w3.org/ns/pim/space# ccns: https://creativecommons.org/ns# skos: http://www.w3.org/2004/02/skos/core# prov: http://www.w3.org/ns/prov# qb: http://purl.org/linked-data/cube# schema: http://schema.org/ void: http://rdfs.org/ns/void# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# cal: http://www.w3.org/2002/12/cal/ical# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# org: http://www.w3.org/ns/org# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ sioc: http://rdfs.org/sioc/ns# doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ oa: http://www.w3.org/ns/oa# as: https://www.w3.org/ns/activitystreams# ldp: http://www.w3.org/ns/ldp# solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# cnt: http://www.w3.org/2011/content# fibol: http://www.omg.org/spec/EDMC-FIBO/BE/LegalEntities/LegalPersons/ fiborel: http://www.omg.org/spec/EDMC-FIBO/FND/Relations/Relations/ acrt: https://privatealpha.com/ontology/certification/1# adoc: https://irnok.net/ontologies/documents/"
+          resource="#semantic-editor"
+          typeof="schema:CreativeWork sioc:Post prov:Entity"
+    >
+        <main lang="ru" resource="#annotation" typeof="oa:Annotation">
+            <div class="panel panel-primary" style="margin:1em; max-width:70em;" id="main-panel">
+                <div class="panel-heading toolbar" id="main-toolbar">
+                    <span class="btn-group ">
+                        <button class="btn btn-primary"
+                                id="app-control-button"
+                                data-phase="disp">
+                            <span class="fa fa-edit" id="app-control-button-icon"/>
+                        </button>
+                        <button
+                            id="app-control-medium-editor"
+                            class="btn btn-primary">
+                            <span
+                                class="fa fa-pencil-square"
+                                id="app-control-ME-icon"/>
+                        </button>
+                    </span>
+                    <span class="fa fa-file-o" style="margin-left:3em;"></span>
+                    <span
+                        style="margin-left:1em;margin-right:3em;"
+                        id="document-display-title">Доверенность на получение заработной платы
+                    </span>
+                    <span class="btn-group right">
+                        <button
+                            id="app-control-save"
+                            class="btn btn-success">
+                            <span
+                                class="fa fa-save"
+                                id="app-control-save-icon"/>
+                        </button>
+                        <button
+                            id="app-control-save-as"
+                            class="btn btn-success">
+                            <span
+                                class="fa fa-files-o"
+                                id="app-control-save-as-icon"/>
+                        </button>
+                        <a
+                            id="app-control-database"
+                            class="btn btn-primary"
+                            href="/"
+                        >
+                            <span
+                                class="fa fa-database"
+                                id="app-control-database-icon"/>
+                        </a>
+                    </span>
+                </div>
+                <div id="message"></div>
+                <div id="main-document-container" tal:content="structure content" class="editable">
+                    Загрузка документа ...
+                </div>
+            </div>
+        </main>
+        <!-- Do not add any visible HTML below this line -->
+        <!--
+        <script src="https://dokie.li/scripts/simplerdf.js"></script>
+        <script src="https://dokie.li/scripts/medium-editor.min.js"></script>
+        <script src="https://dokie.li/scripts/medium-editor-tables.min.js"></script>
+        -->
+        <script src="/js/medium-editor.min.js"></script>
+        <!-- <script src="/js/medium-editor-tables.min.js"></script> -->
+        <!--
+        <script src="https://dokie.li/scripts/do.js"></script>
+        -->
+        <script
+            src="/js/jquery/jquery-3.1.1.min.js" type="text/javascript"
+        ></script>
+        <script
+            src="/js/elasticsearch-js/elasticsearch.jquery.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js"
+                type="text/javascript"></script>
+
+        <!--
+        <script src="/js/underscore.js" type="text/javascript"></script>
+        <script src="/js/backbone.js" type="text/javascript"></script>
+        <script src="/js/vie.js" type="text/javascript"></script>
+        -->
+        <!--
+             <script src="js/rdflib.min.js" type="text/javascript"></script>
+           -->
+        <script src="/js/rdfengine.js" type="text/javascript"></script>
+    </body>
+</html>

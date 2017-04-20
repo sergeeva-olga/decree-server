@@ -1,6 +1,19 @@
 function jqesc( myid ) {
   return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
 };
+
+function generateUUID () { // Public Domain/MIT
+  var d = new Date().getTime();
+  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+    d += performance.now(); //use high-precision timer if available
+  }
+  return 'xxxxxxxx-xxxx-8xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
 function setupEditMode() {
   var editables = $('[datatype]');
   editables.each(function(){
@@ -11,7 +24,11 @@ function setupEditMode() {
     size = Number(size * 1.2);
     e.wrapInner(`<input value="${val}" class="edit-field form-inline" size="${size}" />`);
   });
+  setDatabaseEnabled(false);
+  setSaveEnabled(false);
+  setGEditEnabled(false);
 };
+
 function setupDispMode() {
   var editables = $('.edit-field');
   editables.each(function(){
@@ -22,6 +39,23 @@ function setupDispMode() {
     e.text(val);
   });
   propagateEditable();
+  setDatabaseEnabled(true);
+  setSaveEnabled(true);
+  setGEditEnabled(true);
+};
+
+function setDatabaseEnabled(val) {
+  $("#app-control-database").prop('disabled', ! val);
+};
+
+function setSaveEnabled(val) {
+  $("#app-control-save").prop('disabled', ! val);
+  $("#app-control-save-as").prop('disabled', ! val);
+  $("menu button.show").prop('disabled', ! val);
+};
+
+function setGEditEnabled(val) {
+  $("#app-control-medium-editor").prop('disabled', ! val);
 };
 
 
@@ -36,16 +70,13 @@ function propagateEditable() {
       $(`${eid}:not([datatype])`).each(function(){
         var disp=$(this); // tag <span ... >
         var gen=disp.attr("data-case");
-        if (gen != undefined) {
-          var query = {
-            "phrase": val,
-            "case": gen,
-            "all": true
-          };
-          $.ajax({
+        var genF=disp.attr("data-f");
+        var genM=disp.attr("data-m");
+        var query;
+        var ajaxConf={
             type: "POST",
             url: "/api/morphy",
-            data: JSON.stringify( query ),
+            data: undefined,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(answer){
@@ -54,12 +85,42 @@ function propagateEditable() {
             failure: function(errMsg) {
               alert(errMsg);
             }
-          });
         };
+
+        if (gen != undefined) {
+          query = {
+            "phrase": val,
+            "case": gen,
+            "command": "all"
+          };
+        } else {
+          query = {
+            "command":"gender",
+            "phrase": val,
+            "F": genF,
+            "M": genM
+          };
+        };
+        ajaxConf.data=JSON.stringify(query);
+        $.ajax(ajaxConf);
       });
     };
   });
 };
+
+function alert_widget(level, message) {
+  var icon = {
+    "danger":"ban",
+    "success":"check"
+  }[level];
+  return `<div class="alert alert-${level} alert-dismissible" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <i class="icon fa fa-${icon}"></i>&nbsp;&nbsp;&nbsp;
+  ${message}
+</div>`
+}
 
 $(document).ready(function(){
   $("#app-control-button").click(function(){
@@ -79,23 +140,53 @@ $(document).ready(function(){
       setupEditMode();
     }
   });
-  $('#app-control-save').click(function(){
-    var docroot=$("#main-document");
-    var text = docroot.html();
+  function saveDocument(saveas, msg) {
+    var container = $("#main-document-container");
+    var text;
+    var apiUrl, oldUUID;
+    if (saveas) {
+      apiUrl="save-as";
+      var docroot=container.find("#main-document");
+      var newUUID=generateUUID();
+      oldUUID=docroot.attr("data-uuid");
+      docroot.attr("data-uuid", newUUID);
+      docroot.find("#main-uuid").attr("content", newUUID);
+    } else {
+      apiUrl="save";
+    }
+    text = container.html();
     $.ajax({
       type: "POST",
-      url: "/api/save",
+      url: `/api/${apiUrl}`,
       data: text,
       contentType: "application/x-xhtml, charset=utf-8",
       dataType: "json",
       success: function(answer){
-        $("#message").html(`<div class="alert alert-success"
-                            role="alert">Документ успешно сохранен!</div>&nbsp;&nbsp;&nbsp;`);
+        // FIXME: User could not see the message in save-as mode.
+        $("#message").html(alert_widget("success", msg));
+        if (saveas) {
+          location.href = location.href.replace(oldUUID, newUUID);
+        }
       },
       failure: function(errMsg) {
-        alert(errMsg);
+        $("@message").html(alert_widget("alert", errMsg));
       }
-    });
+      });
+  };
+  $('#app-control-save').click(function(){
+    saveDocument(false, "Документ успешно сохранен!");
+  });
+  $('#app-control-save-as').click(function(){
+    saveDocument(true, "Теперь вы работаете в новом документе!");
+  });
+  $("#app-control-medium-editor").click(function(){
+    // var editor = new MediumEditor('#main-document-container', {
+    var editor = new MediumEditor('.editable');
+
+    $("#message").html(alert_widget("success", "Включен редактор."));
+  });
+  $("#app-control-database").click(function(){
+    // $("#message").html(alert_widget("success", "Доступ к хранилищу."));
   });
   $("[datatype]").addClass("edit");
   propagateEditable();
