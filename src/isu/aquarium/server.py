@@ -18,7 +18,8 @@ from collections import namedtuple
 
 from elasticsearch import Elasticsearch
 
-ES = Elasticsearch(['localhost'], http_auth=("elastic", "elastic321"))
+#ES = Elasticsearch(['localhost'], http_auth=("elastic", "elastic321"))
+ES = Elasticsearch(['localhost'])
 INDEX = "aquarium"
 
 morpher = pymorphy2.MorphAnalyzer()
@@ -41,7 +42,7 @@ class DocumentData(object):
         return self.get_body_data(request)
 
     def load(self, uuid):
-        i = open(self.filename(uuid), "r")
+        i = open(self.filename(uuid), "r", encoding="utf-8")
         self.body = i.read()
         i.close()
 
@@ -66,7 +67,7 @@ class DocumentData(object):
             if not overwite and os.path.isfile(filename):
                 return {"result": "KO", "error": "Document already exists!"}
             # Ok, we must save the content
-            o = open(filename, "w")
+            o = open(filename, "w", encoding="utf-8")
             o.write(self.body)
             o.close()
             self.index()
@@ -79,7 +80,7 @@ class DocumentData(object):
         txt = etree.tostring(self.xml, encoding=str, pretty_print=True)
         result = render("isu.aquarium:templates/editor.pt", {"content": txt})
 
-        open("document.xhtml", "w").write(result)
+        open("document.xhtml", "w", encoding="utf-8").write(result)
 
         g = rdflib.Graph()
         g.parse(data=result, publicID=url, format='rdfa')
