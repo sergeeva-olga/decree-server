@@ -59,12 +59,34 @@ function setGEditEnabled(val) {
 };
 
 
+var WIDGETS={
+  "xsd:admcode": function (e, t) {
+    e.attr("content", t);
+    var ltrs = t.split("");
+    e.empty();
+    ltrs.forEach(function(l, i) {
+      var first = i == 0 ? "-first":"";
+      e.append(`<span class="admcodebox${first}">${l}</span>`);
+    });
+  }
+};
+
+function showWidget(e) {
+  var dt = e.attr("datatype");
+  var w = WIDGETS[dt];
+  if (w != undefined) {
+    var text = e.text().replace(/ /g, '');
+    w(e, text);
+  };
+};
+
 function propagateEditable() {
   var editables = $('[datatype]');
   editables.each(function(){
     var e = $(this);
     var val = e.text();
     var id = e.attr("id");
+    showWidget(e);
     if (id != undefined) {
       var eid = jqesc(id);
       $(`${eid}:not([datatype])`).each(function(){
