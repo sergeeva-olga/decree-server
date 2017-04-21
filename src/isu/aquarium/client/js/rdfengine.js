@@ -51,7 +51,7 @@ function setupDispMode() {
     e.empty();
     e.text(val);
   });
-  propagateEditable();
+  propagateEditable(false);
   setDatabaseEnabled(true);
   setSaveEnabled(true);
   setGEditEnabled(true);
@@ -99,34 +99,42 @@ var WIDGETS={
     });
   },
   "xsd:date": function (e,t) {
-    var dp = t.split(".");
+    var dp;
+    if (t.indexOf("-")>-1) {
+      dp = t.split("-");
+    } else {
+      dp = t.split(".");
+      dp.reverse();
+    }
     dp = [for (i of dp) parseInt(i)];
-    e.attr("content", `${dp[2]}-${dp[1]}-${dp[0]}`);
+    e.attr("content", `${dp[0]}-${dp[1]}-${dp[2]}`);
 
     e.empty();
-    e.append(`"&nbsp;${dp[0]}&nbsp;"&nbsp;&nbsp;`);
+    e.append(`"&nbsp;${dp[2]}&nbsp;"&nbsp;&nbsp;`);
     e.append(`${month(dp[1])}&nbsp;&nbsp;`);
-    e.append(`${dp[2]}&nbsp;г.`);
+    e.append(`${dp[0]}&nbsp;г.`);
   }
 };
 
-function showWidget(e) {
+function showWidget(e, start) {
   var dt = e.attr("datatype");
   var w = WIDGETS[dt];
   if (w != undefined) {
-    var text = e.text().replace(/ /g, '');
+    var text = e.attr("content");
+    text = (text == undefined || ! start) ? e.text() : text;
+    text = text.trim();
     e.attr("content", text);
     w(e, text);
   };
 };
 
-function propagateEditable() {
+function propagateEditable(start) {
   var editables = $('[datatype]');
   editables.each(function(){
     var e = $(this);
     var val = e.text();
     var id = e.attr("id");
-    showWidget(e);
+    showWidget(e, start);
     if (id != undefined) {
       var eid = jqesc(id);
       $(`${eid}:not([datatype])`).each(function(){
@@ -251,6 +259,6 @@ $(document).ready(function(){
     // $("#message").html(alert_widget("success", "Доступ к хранилищу."));
   });
   $("[datatype]").addClass("edit");
-  propagateEditable();
+  propagateEditable(true);
   // setupEditMode();
 });
