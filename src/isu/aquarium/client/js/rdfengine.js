@@ -14,11 +14,24 @@ function generateUUID () { // Public Domain/MIT
   });
 }
 
+var LOCALIZE = {
+  "xsd:date": function(text) {
+    var dp=text.split("-");
+    return `${dp[2]}.${dp[1]}.${dp[0]}`;
+  }
+};
+
 function setupEditMode() {
   var editables = $('[datatype]');
   editables.each(function(){
     var e = $(this);
-    var val = e.text();
+    var val = e.attr("content");
+    val = val == undefined ? e.text(): val;
+    var dt = e.attr("datatype");
+    var locm = LOCALIZE[dt];
+    if (locm != undefined) {
+      val = locm(val);
+    }
     var size = val.trim().length;
     if (size < 5) { size = 5; };
     size = Number(size * 1.2);
@@ -168,7 +181,7 @@ function alert_widget(level, message) {
   </button>
   <i class="icon fa fa-${icon}"></i>&nbsp;&nbsp;&nbsp;
   ${message}
-</div>`
+</div>`;
 }
 
 $(document).ready(function(){
