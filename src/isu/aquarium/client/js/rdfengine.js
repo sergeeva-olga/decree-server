@@ -58,16 +58,42 @@ function setGEditEnabled(val) {
   $("#app-control-medium-editor").prop('disabled', ! val);
 };
 
+function month(x) {
+  var m={
+    1:"января",
+    2:"февраля",
+    3:"марта",
+    4:"апреля",
+    5:"мая",
+    6:"июня",
+    7:"июля",
+    8:"августа",
+    9:"сентября",
+    10:"октября",
+    11:"ноября",
+    12:"декабря"
+  };
+  return m[x];
+}
 
 var WIDGETS={
   "xsd:admcode": function (e, t) {
-    e.attr("content", t);
     var ltrs = t.split("");
     e.empty();
     ltrs.forEach(function(l, i) {
       var first = i == 0 ? "-first":"";
       e.append(`<span class="admcodebox${first}">${l}</span>`);
     });
+  },
+  "xsd:date": function (e,t) {
+    var dp = t.split(".");
+    dp = [for (i of dp) parseInt(i)];
+    e.attr("content", `${dp[2]}-${dp[1]}-${dp[0]}`);
+
+    e.empty();
+    e.append(`"&nbsp;${dp[0]}&nbsp;"&nbsp;&nbsp;`);
+    e.append(`${month(dp[1])}&nbsp;&nbsp;`);
+    e.append(`${dp[2]}&nbsp;г.`);
   }
 };
 
@@ -76,6 +102,7 @@ function showWidget(e) {
   var w = WIDGETS[dt];
   if (w != undefined) {
     var text = e.text().replace(/ /g, '');
+    e.attr("content", text);
     w(e, text);
   };
 };
